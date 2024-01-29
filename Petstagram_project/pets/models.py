@@ -32,7 +32,8 @@ class Pet(models.Model):
             self.slug = slugify(f"{self.name}-{self.pk}")  # generate valid slug
         super().save(*args, **kwargs)  # save generated slug with name and pk
 
-
+    def __str__(self):
+        return self.name
 
 
 

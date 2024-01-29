@@ -2,17 +2,20 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 
 from Petstagram_project.pets.models import Pet
+from Petstagram_project.photos.validators import MaxSizeImageValidator
 
 
 class PhotoPet(models.Model):
     MAX_LENGTH_DESCR = 300
     MIN_LENGTH_DESCR = 10
     MAX_LENGTH_LOCATION = 30
+    MAX_SIZE_3_MB = 3 * 1024 * 2024
 
     photo = models.ImageField(
         upload_to="photos_pet/",
         null=False,
         blank=False,
+        validators=[MaxSizeImageValidator(limit_value=MAX_SIZE_3_MB),],
     )
 
     description = models.CharField(
@@ -32,4 +35,5 @@ class PhotoPet(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True,)  # when the model is created
 
-    modified_at = models.DateTimeField(auto_now=True)   # every time when model is modified
+    modified_at = models.DateTimeField(auto_now=True,)  # every time when model is modified
+
