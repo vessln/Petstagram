@@ -1,1 +1,1 @@
-# Petstagram
+Petstagram - simple Django project
