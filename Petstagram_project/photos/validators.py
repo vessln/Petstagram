@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import BaseValidator
 
-MAX_SIZE_7_MB = 3 * 1024 * 2024
+MAX_SIZE_7_MB = 5 * 1024 * 2024
 
 
 def validate_max_size_of_image(value):
