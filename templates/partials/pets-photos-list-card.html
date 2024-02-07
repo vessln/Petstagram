@@ -1,0 +1,11 @@
+{% load static %}
+
+{% for photo in photo_list %}
+
+    {% include "partials/pets-card-item.html" with photo=photo %}
+
+{% empty %}
+
+    <img class="no-posts" src="{% static 'images/no_posts.png' %}" alt="no posts image">
+
+{% endfor %}
