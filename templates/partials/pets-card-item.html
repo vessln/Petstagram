@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="imgBx" id="photo-{{ photo.pk }} %}">
+    <div class="imgBx" id="photo-{{ photo.pk }}">
         <img src="{{ photo.photo.url }}" alt="post" class="cover">
     </div>
 
@@ -62,14 +62,13 @@
         <h5 class="postTime">{{ photo.created_at|date:"d/M/Y" }}</h5>
 
         <div class="addComments">
-
             <form method="post" action="#">
                 <label for="id_body">Body:</label>
                 <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                          required="" id="id_body"></textarea>
+                          required="" id="id_body">
+                </textarea>
                 <button type="submit">Post</button>
             </form>
-
         </div>
 
     </div>

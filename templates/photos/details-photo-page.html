@@ -9,6 +9,33 @@
 
             {% include "partials/pets-card-item.html" with photo=photo_pet %}
 
+            <p class="pet-details">{{ photo_pet.description }}</p>
+
+            <h5 class="postTime">{{ photo_pet.created_at }}</h5>
+
+            <div class="comments">
+                {% for comment in photo_pet.photocomment_set.all %}
+                    <div class="top">
+                        <div class="userDetails">
+                            <div class="comment-data">
+                                <div class="profilepic">
+                                    <div class="profile_img">
+                                        <div class="image">
+                                            <img src="{% static 'images/person.png' %}" alt="img8">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>
+                                    <a href="{% url 'details profile' pk=1 %}">Mike Jameson</a>
+                                    - {{ comment.text }}
+                                </p>
+                            </div>
+                            <span>{{ comment.created_at }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 

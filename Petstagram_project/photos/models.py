@@ -37,3 +37,5 @@ class PhotoPet(models.Model):
 
     modified_at = models.DateTimeField(auto_now=True,)  # every time when model is modified
 
+    def __str__(self):
+        return f"{', '.join(f'{pet.name} - {self.description}' for pet in self.pets.all())}"
