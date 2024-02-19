@@ -4,6 +4,7 @@ from django.utils.text import slugify
 
 class Pet(models.Model):
     MAX_LENGTH_NAME = 30
+    MAX_LENGTH_PHOTO_URL = 600
 
     name = models.CharField(
         max_length=MAX_LENGTH_NAME,
@@ -14,6 +15,7 @@ class Pet(models.Model):
     pet_photo = models.URLField(
         null=True,
         blank=True,
+        max_length=MAX_LENGTH_PHOTO_URL,
     )
 
     birth_date = models.DateField()

@@ -1,14 +1,14 @@
 from django.urls import path, include
 
-from Petstagram_project.pets.views import create_pet, details_pet, edit_pet, delete_pet
+from Petstagram_project.pets.views import CreatePetView, DetailsPetView, EditPetView, DeletePetView
 
 urlpatterns = (
-    path("create/", create_pet, name="create pet"),
+    path("create/", CreatePetView.as_view(), name="create pet"),
     path("<str:username>/pet/<slug:pet_slug>/",
          include([
-             path("", details_pet, name="details pet"),
-             path("edit/", edit_pet, name="edit pet"),
-             path("delete/", delete_pet, name="delete pet"),
+             path("", DetailsPetView.as_view(), name="details pet"),
+             path("edit/", EditPetView.as_view(), name="edit pet"),
+             path("delete/", DeletePetView.as_view(), name="delete pet"),
         ]),
     ),
 

@@ -9,41 +9,11 @@
 
         <form action="{% url 'create pet' %}" method="post">
 
-            {{ pet_form.as_p }}
+            {{ form.as_p }}
             <button class="add-btn" type="submit">Add Pet</button>
-
             {% csrf_token %}
+
         </form>
-
-
-{#        <form action="{% url 'create pet' %}" method="post">#}
-{#            {% for field in pet_form %}#}
-{#                <div>#}
-{#                    <label for="{{ field.id_for_label }}">#}
-{#                        {% if field.name == 'name' %}#}
-{#                            Pet Name:#}
-{#                        {% elif field.name == 'birth_date' %}#}
-{#                            Date of Birth:#}
-{#                        {% elif field.name == 'pet_photo' %}#}
-{#                            Link to Image:#}
-{#                        {% else %}#}
-{#                            {{ field.label }}#}
-{#                        {% endif %}#}
-{##}
-{#                        {% if field.name == 'birth_date' %}#}
-{#                            <input type="date" name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control">#}
-{#                        {% elif field.name == 'pet_photo' %}#}
-{#                            <input type="url" name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" placeholder="Link to image">#}
-{#                        {% else %}#}
-{#                            <input type="text" name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" placeholder="{{ field.label }}">#}
-{#                        {% endif %}#}
-{#                    </label>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{##}
-{#            <button class="add-btn" type="submit">Add Pet</button>#}
-{#            {% csrf_token %}#}
-{#        </form>#}
 
     </div>
 

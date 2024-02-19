@@ -8,8 +8,8 @@
 
         <h2>Delete pet</h2>
 
-        <form action="{% url 'delete pet' username=username pet_slug=pet.slug %}" method="post">
-            {{ pet_form.as_p }}
+        <form action="{% url 'delete pet' username=username pet_slug=object.slug %}" method="post">
+            {{ form.as_p }}
 
             <button class="delete-btn" type="submit" onclick="if (!confirm('Are you sure you want to delete?')) { return false }">
                 <span>Delete</span>
