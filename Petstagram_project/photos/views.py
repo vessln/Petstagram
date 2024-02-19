@@ -1,23 +1,40 @@
 from django.shortcuts import render
+from django.urls import reverse
 
+from django.views import generic as views
+
+from Petstagram_project.photos.forms import CreatePhotoForm, UpdatePhotoForm
 from Petstagram_project.photos.models import PhotoPet
 
 
-def create_photo(request):
-    context = {}
+class CreatePhotoView(views.CreateView):
+    queryset = PhotoPet.objects.all().prefetch_related("pets")
 
-    return render(request, "photos/create-photo-page.html", context)
+    form_class = CreatePhotoForm
 
+    template_name = "photos/create-photo-page.html"
 
-def details_photo(request, pk):
-    context = {
-        "photo_pet": PhotoPet.objects.get(pk=pk),
-    }
-
-    return render(request, "photos/details-photo-page.html", context)
+    def get_success_url(self):
+        return reverse("details photo",
+                       kwargs={"pk": self.object.pk})
 
 
-def edit_photo(request, pk):
-    context = {}
+class DetailsPhotoView(views.DetailView):
+    # model = PhotoPet
+    queryset = PhotoPet.objects.all().prefetch_related("pets"
+                ).prefetch_related("photolike_set"
+                ).prefetch_related("photocomment_set")
 
-    return render(request, "photos/edit-photo-page.html", context)
+    template_name = "photos/details-photo-page.html"
+
+    # "photo_pet": PhotoPet.objects.get(pk=pk)
+
+
+class EditPhotoView(views.UpdateView):
+    queryset = PhotoPet.objects.all().prefetch_related("pets")
+
+    form_class = UpdatePhotoForm
+
+    template_name = "photos/edit-photo-page.html"
+
+

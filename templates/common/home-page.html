@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load paging_buttons %}
+
 {% block main_content %}
 
     <div class="container">
@@ -16,6 +18,18 @@
 
             {% include "partials/pets-photos-list-card.html" with photo_list=object_list %}
 
+            <!-- Start Pagination -->
+            <div class="pagination">
+                <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                <span class="step-links-buttons">
+                    {% prev_button %}
+                    {% next_button %}
+                </span>
+            </div>
+            <!-- End Pagination -->
         </div>
     </div>
 

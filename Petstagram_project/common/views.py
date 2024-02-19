@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
@@ -15,6 +15,7 @@ class HomePageView(views.ListView):
 
     template_name = "common/home-page.html"
 
+    paginate_by = 1
 
     # def get_queryset(self):
         # queryset = super().get_queryset()
