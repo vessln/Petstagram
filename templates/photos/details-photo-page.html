@@ -9,6 +9,10 @@
 
             {% include "partials/pets-card-item.html" with photo=object %}
 
+            <a style="color: #999999" href="{% url 'edit photo' pk=object.pk %}">Edit photo</a>
+
+            <hr>
+
             <p class="pet-details">{{ object.description }}</p>
 
             <h5 class="postTime">{{ object.created_at }}</h5>

@@ -5,6 +5,7 @@ class ReadonlyFormFieldsMixin:
     def _make_fields_readonly(self):
         for field_name in self.readonly_fields_names:
             self.fields[field_name].widget.attrs["readonly"] = "readonly"
+            self.fields[field_name].widget.attrs["disabled"] = "disabled"
 
     @property
     def readonly_fields_names(self):

@@ -37,4 +37,8 @@ class EditPhotoView(views.UpdateView):
 
     template_name = "photos/edit-photo-page.html"
 
+    def get_success_url(self):
+        return reverse("details photo",
+                       kwargs={"pk": self.object.pk})
+
 
