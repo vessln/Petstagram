@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
+
+UserModel = get_user_model()
 
 
 class Pet(models.Model):
@@ -26,6 +29,12 @@ class Pet(models.Model):
         blank=True,   # user can submit without fill in this field in form
         editable=False,  # only in the app - user cannot see this field (not in DB)
     )
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
+    )
+
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # to generate pk

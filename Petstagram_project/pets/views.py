@@ -1,11 +1,12 @@
 from django.urls import reverse, reverse_lazy
 from django.views import generic as views
+from django.contrib.auth import mixins as auth_mixins
 
 from Petstagram_project.pets.forms import CreatePetForm, EditPetForm, DeletePetForm
 from Petstagram_project.pets.models import Pet
 
 
-class CreatePetView(views.CreateView):
+class CreatePetView(auth_mixins.LoginRequiredMixin, views.CreateView):
     form_class = CreatePetForm
     template_name = "pets/create-pet-page.html"
 
@@ -14,8 +15,20 @@ class CreatePetView(views.CreateView):
                        kwargs={"username": "vesi",
                                "pet_slug": self.object.slug})
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.instance.user = self.request.user
 
-class DetailsPetView(views.DetailView):
+        return form
+
+    # or:
+    # def form_valid(self, form):
+    #     pet = form.save(commit=False)
+    #     pet.user = self.request.user
+    #     return super().form_valid(form)
+
+
+class DetailsPetView(auth_mixins.LoginRequiredMixin, views.DetailView):
     # model = Pet
     queryset = Pet.objects.all(
                 ).prefetch_related("photopet_set"
@@ -27,7 +40,7 @@ class DetailsPetView(views.DetailView):
     # slug_field = "..."  field's name in Model
 
 
-class EditPetView(views.UpdateView):
+class EditPetView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     model = Pet  # or queryset = Pet.objects.all()
     form_class = EditPetForm
     template_name = "pets/edit-pet-page.html"
@@ -46,7 +59,7 @@ class EditPetView(views.UpdateView):
                                "pet_slug": self.object.slug})  # or self.kwargs["pet_slug"]
 
 
-class DeletePetView(views.DeleteView):
+class DeletePetView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = Pet
     form_class = DeletePetForm
 

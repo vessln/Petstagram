@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent   # should point to the manage.py dir
 
 
@@ -23,7 +25,7 @@ INSTALLED_APPS = [
     # Third party apps:
 
     # My project apps:
-    'Petstagram_project.accounts',
+    'Petstagram_project.accounts.apps.AccountsConfig',
     'Petstagram_project.common',
     'Petstagram_project.pets',
     'Petstagram_project.photos',
@@ -85,6 +87,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = []
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -131,7 +136,15 @@ LOGGING = {
     }
 }
 
+# path to my user:
+AUTH_USER_MODEL = "accounts.PetstagramUser"  # change the default User with mine
 
+
+LOGIN_REDIRECT_URL = reverse_lazy("home page")
+
+LOGIN_URL = reverse_lazy("home page")
+
+LOGOUT_REDIRECT_URL = reverse_lazy("home page")
 
 
 

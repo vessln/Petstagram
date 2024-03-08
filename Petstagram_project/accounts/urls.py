@@ -1,17 +1,17 @@
 from django.urls import path, include
 
-from Petstagram_project.accounts.views import signup_user, signin_user, signout_user, show_details_profile, \
-    edit_profile, delete_profile
+from Petstagram_project.accounts.views import SignUpUserView, SignInUserView, signout_user, \
+    ProfileUpdateView, ProfileDeleteView, ProfileDetailsView
 
 urlpatterns = (
-    path("signup/", signup_user, name="signup"),
-    path("signin/", signin_user, name="signin"),
+    path("signup/", SignUpUserView.as_view(), name="signup"),
+    path("signin/", SignInUserView.as_view(), name="signin"),
     path("signout/", signout_user, name="signout"),
     path("profile/<int:pk>/",
          include([
-             path("", show_details_profile, name="details profile"),
-             path("edit/", edit_profile, name="edit profile"),
-             path("delete/", delete_profile, name="delete profile"),
+             path("", ProfileDetailsView.as_view(), name="details profile"),
+             path("edit/", ProfileUpdateView.as_view(), name="edit profile"),
+             path("delete/", ProfileDeleteView.as_view(), name="delete profile"),
                 ]),
          ),
 

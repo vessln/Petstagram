@@ -1,8 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
 
 from Petstagram_project.pets.models import Pet
 from Petstagram_project.photos.validators import MaxSizeImageValidator
+
+UserModel = get_user_model()
 
 
 class PhotoPet(models.Model):
@@ -36,6 +39,11 @@ class PhotoPet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,)  # when the model is created
 
     modified_at = models.DateTimeField(auto_now=True,)  # every time when model is modified
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.RESTRICT,
+    )
 
     def __str__(self):
         return f"{', '.join(f'{pet.name} - {self.description}' for pet in self.pets.all())}"

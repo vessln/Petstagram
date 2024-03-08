@@ -29,8 +29,9 @@
                     </li>
 
                     {% if request.user.is_authenticated %}
+
                         <li class="nav-item">
-                            <a href="{% url 'details profile' pk=1 %}">
+                            <a href="{% url 'details profile' pk=request.user.pk %}">
                                 <i>Profile</i>
                             </a>
                         </li>
@@ -39,7 +40,9 @@
                                 <i>Log out</i>
                             </a>
                         </li>
+
                     {% else %}
+
                         <li class="nav-item">
                             <a href="{% url 'signin' %}">
                                 <i>Login</i>
@@ -50,6 +53,7 @@
                                 <i>Register</i>
                             </a>
                         </li>
+
                     {% endif %}
 
                 </ul>

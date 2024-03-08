@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from django.views import generic as views
+from django.contrib.auth import mixins as auth_mixins
 
 from Petstagram_project.photos.forms import CreatePhotoForm, UpdatePhotoForm
 from Petstagram_project.photos.models import PhotoPet
 
 
-class CreatePhotoView(views.CreateView):
+class CreatePhotoView(auth_mixins.LoginRequiredMixin, views.CreateView):
     queryset = PhotoPet.objects.all().prefetch_related("pets")
 
     form_class = CreatePhotoForm
@@ -18,8 +19,14 @@ class CreatePhotoView(views.CreateView):
         return reverse("details photo",
                        kwargs={"pk": self.object.pk})
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.instance.user = self.request.user
 
-class DetailsPhotoView(views.DetailView):
+        return form
+
+
+class DetailsPhotoView(auth_mixins.LoginRequiredMixin, views.DetailView):
     # model = PhotoPet
     queryset = PhotoPet.objects.all().prefetch_related("pets"
                 ).prefetch_related("photolike_set"
@@ -30,7 +37,7 @@ class DetailsPhotoView(views.DetailView):
     # "photo_pet": PhotoPet.objects.get(pk=pk)
 
 
-class EditPhotoView(views.UpdateView):
+class EditPhotoView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     queryset = PhotoPet.objects.all().prefetch_related("pets")
 
     form_class = UpdatePhotoForm

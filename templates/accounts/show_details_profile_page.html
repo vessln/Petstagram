@@ -8,29 +8,40 @@
         <div class="profile-data">
           <div class="profile_img">
             <div class="image">
-              <img src="{% static 'images/person.png' %}" alt="img8" />
+                {% if object.profile_picture %}
+                    <img src="{{ object.profile_picture }}" alt="img8"/>
+                {% else %}
+                    <img src="{% static 'images/person.png' %}" alt="img8"/>
+                {% endif %}
             </div>
           </div>
+
           <div class="personal">
-            <div class="edit">
-              <p>d_kalaydzhiev</p>
+              <div class="edit">
+                  <p>{{ profile.user.email }}</p>
 
-              <a href="#">
-                <img
-                  class="edit-img"
-                  src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                  alt="edit button"
-                />
-              </a>
+                  {% if object.pk == request.user.pk %}
 
-              <a href="">
-                <img
-                  class="bin-img"
-                  src="{% static 'images/icon-remove-22.jpg' %}"
-                  alt="bin button"
-                />
-              </a>
-            </div>
+                      <a href="{% url 'edit profile' pk=request.user.pk %}">
+                          <img
+                          class="edit-img"
+                          src="{% static 'images/edit-pen-icon-6.jpg' %}"
+                          alt="edit button"
+                          />
+                      </a>
+
+                      <a href="{% url 'delete profile' pk=request.user.pk %}">
+                          <img
+                              class="bin-img"
+                              src="{% static 'images/icon-remove-22.jpg' %}"
+                              alt="bin button"
+                          />
+                      </a>
+
+                  {% endif %}
+
+              </div>
+    {#TODO:#}
             <div class="data">
               <span>4</span>
               <p>photos</p>
@@ -41,11 +52,18 @@
               <span>436</span>
               <p>likes</p>
             </div>
-            <h3 class="names">Diyan Kalaydziev</h3>
 
-            <p class="email">d.denov@gmail.com</p>
+          {% if object.get_full_name %}
+            <h3 class="names">{{ object.get_full_name }}</h3>
+          {% endif %}
 
-            <p class="gender">Male</p>
+          {% if object.date_of_birth %}
+            <p>{{ object.date_of_birth }}</p>
+          {% endif %}
+
+
+            <p class="email">{{ object.email }}</p>
+
           </div>
         </div>
 
