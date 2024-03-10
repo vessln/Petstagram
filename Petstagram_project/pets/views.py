@@ -2,8 +2,10 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import mixins as auth_mixins
 
+from Petstagram_project.core.views_mixins import OwnerRequiredMixin
 from Petstagram_project.pets.forms import CreatePetForm, EditPetForm, DeletePetForm
 from Petstagram_project.pets.models import Pet
+
 
 
 class CreatePetView(auth_mixins.LoginRequiredMixin, views.CreateView):
@@ -40,7 +42,7 @@ class DetailsPetView(auth_mixins.LoginRequiredMixin, views.DetailView):
     # slug_field = "..."  field's name in Model
 
 
-class EditPetView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+class EditPetView(OwnerRequiredMixin, views.UpdateView):
     model = Pet  # or queryset = Pet.objects.all()
     form_class = EditPetForm
     template_name = "pets/edit-pet-page.html"
@@ -59,7 +61,8 @@ class EditPetView(auth_mixins.LoginRequiredMixin, views.UpdateView):
                                "pet_slug": self.object.slug})  # or self.kwargs["pet_slug"]
 
 
-class DeletePetView(auth_mixins.LoginRequiredMixin, views.DeleteView):
+class DeletePetView(OwnerRequiredMixin, views.DeleteView):
+    # user = ...
     model = Pet
     form_class = DeletePetForm
 

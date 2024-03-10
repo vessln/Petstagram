@@ -1,6 +1,6 @@
 from django import forms
 
-from Petstagram_project.core.mixins import ReadonlyFormFieldsMixin
+from Petstagram_project.core.forms_mixins import ReadonlyFormFieldsMixin
 from Petstagram_project.photos.models import PhotoPet
 
 

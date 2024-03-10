@@ -29,3 +29,11 @@ class ProfileUpdateForm(forms.ModelForm):
                 "placeholder": "year-month-day"
             }),
         }
+
+
+
+
+
+
+
+

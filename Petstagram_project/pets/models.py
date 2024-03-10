@@ -2,10 +2,12 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.text import slugify
 
+from Petstagram_project.core.models import IHaveUser
+
 UserModel = get_user_model()
 
 
-class Pet(models.Model):
+class Pet(IHaveUser, models.Model):
     MAX_LENGTH_NAME = 30
     MAX_LENGTH_PHOTO_URL = 600
 
@@ -30,11 +32,10 @@ class Pet(models.Model):
         editable=False,  # only in the app - user cannot see this field (not in DB)
     )
 
-    user = models.ForeignKey(
-        UserModel,
-        on_delete=models.RESTRICT,
-    )
-
+    # user = models.ForeignKey(
+    #     UserModel,
+    #     on_delete=models.RESTRICT,
+    # )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # to generate pk

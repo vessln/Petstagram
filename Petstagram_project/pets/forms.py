@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from Petstagram_project.core.mixins import ReadonlyFormFieldsMixin
+from Petstagram_project.core.forms_mixins import ReadonlyFormFieldsMixin
 from Petstagram_project.pets.models import Pet
 
 
