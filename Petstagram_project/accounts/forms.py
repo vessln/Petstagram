@@ -31,9 +31,7 @@ class ProfileUpdateForm(forms.ModelForm):
         }
 
 
-
-
-
-
-
+class PetstagramChangeForm(auth_forms.UserChangeForm):
+    class Meta(auth_forms.UserChangeForm):
+        model = UserModel
 
